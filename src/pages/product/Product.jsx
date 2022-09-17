@@ -15,6 +15,7 @@ export default function Product() {
   const [show, setShow] = useState(false);
   const [allShow, setAllShow] = useState(false);
   const [formSaveData, setFormSaveData] = useState([]);
+  const token = useSelector((state) => state.user.currentUser.accessToken);
 
   const product = useSelector((state) =>
     state.product.products.find((product) => product._id === productId)
@@ -42,9 +43,9 @@ export default function Product() {
     const getStats = async () => {
       try {
         const res = await userRequest.get("orders/income?pid=" + productId);
-        const list = res.data.sort((a,b)=>{
-            return a._id - b._id
-        })
+        const list = res.data.sort((a, b) => {
+          return a._id - b._id;
+        });
         list.map((item) =>
           setPStats((prev) => [
             ...prev,
@@ -70,27 +71,27 @@ export default function Product() {
     };
     setFormSaveData(formNewData);
     setShow(true);
-  }
+  };
 
-  const URL = `http://localhost:5000/api/v1/products/${productId}`;
+  const URL = `https://apibuy.herokuapp.com/api/v1/products/${productId}`;
 
   const updateProductDetails = async () => {
     setShow(false);
-    if(!formSaveData.title){
+    if (!formSaveData.title) {
       formSaveData.title = product.title;
     }
-    if(!formSaveData.desc){
+    if (!formSaveData.desc) {
       formSaveData.desc = product.desc;
     }
     console.log(formSaveData.img.name);
-    if(!formSaveData.img.name){
+    if (!formSaveData.img.name) {
       formSaveData.img = product.img;
     }
     console.log(formSaveData.img.name);
-    if(!formSaveData.price){
+    if (!formSaveData.price) {
       formSaveData.price = product.price;
     }
-    if(!formSaveData.inStock){
+    if (!formSaveData.inStock) {
       formSaveData.inStock = product.inStock;
     }
     try {
@@ -98,7 +99,8 @@ export default function Product() {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          // token: token,
+          token: `Bearer ${token}`,
+          "Access-Control-Allow-Origin": "origin-list",
         },
         body: JSON.stringify({
           title: formSaveData.title,
@@ -116,7 +118,7 @@ export default function Product() {
     } catch (error) {
       alert(error);
     }
-  }
+  };
 
   const updateProductDetailsCancel = () => {
     setShow(false);
@@ -157,7 +159,7 @@ export default function Product() {
         </div>
       </div>
       <div className="productBottom">
-        <form className="productForm" onSubmit={updateProduct} >
+        <form className="productForm" onSubmit={updateProduct}>
           <div className="productFormLeft">
             <label>Product Name</label>
             <input type="text" name="title" placeholder={product.title} />
@@ -177,27 +179,32 @@ export default function Product() {
               <label for="file">
                 <Publish />
               </label>
-              <input type="file" id="file" name="img" style={{ display: "none" }} />
+              <input
+                type="file"
+                id="file"
+                name="img"
+                style={{ display: "none" }}
+              />
             </div>
             <button className="productButton">Update</button>
           </div>
         </form>
       </div>
       <SweetAlert
-          show={show}
-          warning
-          showCancel
-          confirmBtnText="Yes, Update it!"
-          confirmBtnBsStyle="danger"
-          title="Are you sure?"
-          onConfirm={updateProductDetails}
-          onCancel={updateProductDetailsCancel}
-          focusCancelBtn
-        >
-          You will not be able to recover this imaginary file!
-        </SweetAlert>
+        show={show}
+        warning
+        showCancel
+        confirmBtnText="Yes, Update it!"
+        confirmBtnBsStyle="danger"
+        title="Are you sure?"
+        onConfirm={updateProductDetails}
+        onCancel={updateProductDetailsCancel}
+        focusCancelBtn
+      >
+        You will not be able to recover this imaginary file!
+      </SweetAlert>
 
-        <SweetAlert
+      <SweetAlert
         show={allShow}
         success
         title="Successfully updated!"

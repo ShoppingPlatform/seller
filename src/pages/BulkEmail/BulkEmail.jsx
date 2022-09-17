@@ -3,6 +3,7 @@ import emailjs from "@emailjs/browser";
 // import {fetch} from 'wix-fetch';
 import SweetAlert from "react-bootstrap-sweetalert";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import "../newUser/newUser.css";
 import "../user/user.css";
 import "./BulkEmail.css";
@@ -11,17 +12,22 @@ const BulkEmail = () => {
   const form = useRef();
   const [show, setShow] = useState(false);
   const [data, setData] = useState([]);
+  const token = useSelector((state) => state.user.currentUser.accessToken);
 
   useEffect(() => {
     const getUsers = async () => {
       try {
-        let response = await fetch("http://localhost:5000/api/v1/user", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            // token: token,
-          },
-        });
+        let response = await fetch(
+          "https://apiuserbuyer.herokuapp.com/api/v1/user",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              token: `Bearer ${token}`,
+              "Access-Control-Allow-Origin": "origin-list",
+            },
+          }
+        );
         let json = await response.json();
         setData(json);
         console.log(json);

@@ -4,7 +4,7 @@ import { loginSuccess } from "../../redux/userRedux";
 import SweetAlert from "react-bootstrap-sweetalert";
 // import { useNavigate } from "react-router";
 import styled from "styled-components";
-import {mobile} from "../../responsive";
+import { mobile } from "../../responsive";
 // import {
 //   useNavigate,
 // } from 'react-router-dom';
@@ -88,7 +88,7 @@ const Login = () => {
     // if (isfail) {
     //   alert("Username password incorrect!");
     //   setAllErrorShow(true);
-      
+
     //   // navigate("/login");
     //   // window.href("http://localhost:3000/");
     // } else {
@@ -101,11 +101,11 @@ const Login = () => {
 
   const checkLogin = async () => {
     try {
-      let response = await fetch("http://localhost:5000/api/v1/auth/login", {
+      let response = await fetch("https://apiuserbuyer.herokuapp.com/api/v1/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          // token: token,
+          "Access-Control-Allow-Origin": "origin-list",
         },
         body: JSON.stringify({
           username: username,
@@ -116,11 +116,11 @@ const Login = () => {
       setData(json);
       console.log(json);
       if (response.ok && json.isAdmin) {
-        if(json.isActivated){
+        if (json.isActivated) {
           setAllShow(true);
           dispatch(loginSuccess(json));
-          window.location.href = "http://localhost:3001/";
-        }else {
+          window.location.href = "http://localhost:3000/";
+        } else {
           alert("User is deactivated! Please contact system admin");
         }
       } else {

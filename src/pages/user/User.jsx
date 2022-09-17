@@ -10,6 +10,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 import "./user.css";
 import SweetAlert from "react-bootstrap-sweetalert";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function User() {
   const location = useLocation();
@@ -18,8 +19,9 @@ export default function User() {
   const [data, setData] = useState([]);
   const [formSaveData, setFormSaveData] = useState([]);
   const [show, setShow] = useState(false);
+  const token = useSelector((state) => state.user.currentUser.accessToken);
 
-  const URL = `http://localhost:5000/api/v1/user/find/${userId}`;
+  const URL = `https://apiuserbuyer.herokuapp.com/api/v1/user/find/${userId}`;
 
   useEffect(() => {
     const userData = async () => {
@@ -28,7 +30,8 @@ export default function User() {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            // token: token,
+            token: `Bearer ${token}`,
+            "Access-Control-Allow-Origin": "origin-list",
           },
         });
         let json = await response.json();
@@ -42,7 +45,7 @@ export default function User() {
     userData();
   }, []);
 
-  const URL_update = `http://localhost:5000/api/v1/user/${userId}`;
+  const URL_update = `https://apiuserbuyer.herokuapp.com/api/v1/user/${userId}`;
 
   const updateUser = (e) => {
     e.preventDefault();
@@ -72,7 +75,8 @@ export default function User() {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          // token: token,
+          token: `Bearer ${token}`,
+          "Access-Control-Allow-Origin": "origin-list",
         },
         body: JSON.stringify({
           username: username,
@@ -101,7 +105,12 @@ export default function User() {
         <h1 className="userTitle">Edit User</h1>
         <div className="userTitleButtons">
           <Link to={"/users"}>
-            <button className="userAddButton" style={{marginRight:"20px",backgroundColor: "darkblue"}}>Back</button>
+            <button
+              className="userAddButton"
+              style={{ marginRight: "20px", backgroundColor: "darkblue" }}
+            >
+              Back
+            </button>
           </Link>
 
           <Link to={"/newUser"}>

@@ -8,13 +8,13 @@ export default function Topbar() {
   const dispatch = useDispatch();
   const logOutPress = () => {
     dispatch(logout());
-    window.location.href = "http://localhost:3001/login";
+    window.location.href = "http://localhost:3000/login";
   }
   return (
     <div className="topbar">
       <div className="topbarWrapper">
         <div className="topLeft">
-          <span className="logo">MindFulness</span>
+          <span className="logo">Shopping Platform</span>
         </div>
         <div className="topRight">
           <div className="topbarIconContainer">

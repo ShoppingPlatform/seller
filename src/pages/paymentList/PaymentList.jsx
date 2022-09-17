@@ -5,6 +5,7 @@ import { userRows } from "../../dummyData";
 import { Link } from "react-router-dom";
 import SweetAlert from "react-bootstrap-sweetalert";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function PaymentList() {
   const [data, setData] = useState([]);
@@ -15,19 +16,24 @@ export default function PaymentList() {
   const [updateAllShow, setUpdateAllShow] = useState(false);
   const [paymentId, setPaymentId] = useState("");
   const [deleteTrigger, setDeleteTrigger] = useState("");
+  const token = useSelector((state) => state.user.currentUser.accessToken);
   // const [data, setData] = useState(userRows);
 
   // IP address of local machine - 192.168.8.187
   useEffect(() => {
     const userData = async () => {
       try {
-        let response = await fetch("http://localhost:5000/api/v1/checkout", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            // token: token,
-          },
-        });
+        let response = await fetch(
+          "https://apipaymentbuyer.herokuapp.com/api/v1/checkout",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              token: `Bearer ${token}`,
+              "Access-Control-Allow-Origin": "origin-list",
+            },
+          }
+        );
         let json = await response.json();
         setData(json);
         console.log(json);
@@ -39,9 +45,9 @@ export default function PaymentList() {
     userData();
   }, [deleteTrigger]);
 
-  const URL = `http://localhost:5000/api/v1/checkout/${paymentId}`;
+  const URL = `https://apipaymentbuyer.herokuapp.com/api/v1/checkout/${paymentId}`;
 
-  const URl_Update = `http://localhost:5000/api/v1/checkout/${paymentId}`;
+  const URl_Update = `https://apipaymentbuyer.herokuapp.com/v1/checkout/${paymentId}`;
 
   const updateConfirm = async () => {
     try {
@@ -49,7 +55,8 @@ export default function PaymentList() {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          // token: token,
+          token: `Bearer ${token}`,
+          "Access-Control-Allow-Origin": "origin-list",
         },
         body: JSON.stringify({
           isActivation: updateActivate,
@@ -72,7 +79,8 @@ export default function PaymentList() {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-          // token: token,
+          token: `Bearer ${token}`,
+          "Access-Control-Allow-Origin": "origin-list",
         },
       });
       let json = await response.json();
@@ -134,7 +142,7 @@ export default function PaymentList() {
               <button
                 className="userListEdit"
                 onClick={() => {
-                    setPaymentId(params.row._id)
+                  setPaymentId(params.row._id);
                   // setShow(true);
                 }}
               >

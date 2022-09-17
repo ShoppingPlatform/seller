@@ -10,8 +10,9 @@ import { Link, useLocation } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 import "../user/user.css";
 import SweetAlert from "react-bootstrap-sweetalert";
-import formatDistance from 'date-fns/formatDistance'
+import formatDistance from "date-fns/formatDistance";
 import { format } from "timeago.js";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Payments() {
   const location = useLocation();
@@ -20,8 +21,9 @@ export default function Payments() {
   const [data, setData] = useState([]);
   const [formSaveData, setFormSaveData] = useState([]);
   const [show, setShow] = useState(false);
+  const token = useSelector((state) => state.user.currentUser.accessToken);
 
-  const URL = `http://localhost:5000/api/v1/checkout/find/${paymentId}`;
+  const URL = `https://apipaymentbuyer.herokuapp.com/api/v1/checkout/find/${paymentId}`;
 
   useEffect(() => {
     const userData = async () => {
@@ -30,7 +32,8 @@ export default function Payments() {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            // token: token,
+            token: `Bearer ${token}`,
+            "Access-Control-Allow-Origin": "origin-list",
           },
         });
         let json = await response.json();
@@ -105,7 +108,9 @@ export default function Payments() {
             <div className="userShowInfo">
               <CalendarToday className="userShowIcon" />
               <span className="userShowInfoTitle">Payment Date - </span>
-              <span className="userShowInfoTitle">{format(data.createdDate)}</span>
+              <span className="userShowInfoTitle">
+                {format(data.createdDate)}
+              </span>
             </div>
             {/* <span className="userShowTitle">Contact Details</span>
               <div className="userShowInfo">

@@ -10,7 +10,7 @@ export default function WidgetSm() {
     const getUsers = async () => {
       try {
         const res = await userRequest.get(
-          "http://localhost:5000/api/v1/user/?new=true"
+          "https://apiuserbuyer.herokuapp.com/api/v1/user/?new=true"
         );
         setUsers(res.data);
       } catch {}

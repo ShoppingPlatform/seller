@@ -20,9 +20,10 @@ export default function OrderList() {
   const [userId, setUserId] = useState("");
   const [deleteTrigger, setDeleteTrigger] = useState([]);
   const [cartId, setCartId] = useState("");
+  const token = useSelector((state) => state.user.currentUser.accessToken);
 
   //   const user = useSelector((state) => state.user.currentUser._id);
-  const URL = `http://192.168.8.187:5000/api/v1/orders/`;
+  const URL = `https://apideliverybuyer.herokuapp.com/api/v1/orders/`;
   // const URL = `http://192.168.8.187:5000/api/v1/carts/find/${user}`;
   // const [data, setData] = useState(userRows);
 
@@ -34,7 +35,8 @@ export default function OrderList() {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            // token: token,
+            token: `Bearer ${token}`,
+            "Access-Control-Allow-Origin": "origin-list",
           },
         });
         let json = await response.json();
@@ -50,23 +52,24 @@ export default function OrderList() {
 
   // const URL = `http://localhost:5000/api/v1/carts/${cartId}`;
 
-  const URl_Update = `http://localhost:5000/api/v1/orders/${cartId}`;
+  const URl_Update = `https://apideliverybuyer.herokuapp.com/api/v1/orders/${cartId}`;
 
-  const updateConfirm = async (keyPair,value) => {
+  const updateConfirm = async (keyPair, value) => {
     console.log("Update");
     // setUpdateActivate(keyPair);
     let jsonObject;
-    if(keyPair === "status"){
-        jsonObject = {"status":value}
-    }else if(keyPair === "isCancel"){
-        jsonObject = {"isCancel":value}
+    if (keyPair === "status") {
+      jsonObject = { status: value };
+    } else if (keyPair === "isCancel") {
+      jsonObject = { isCancel: value };
     }
     try {
       let response = await fetch(URl_Update, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          // token: token,
+          token: `Bearer ${token}`,
+          "Access-Control-Allow-Origin": "origin-list",
         },
         body: JSON.stringify(jsonObject),
       });
@@ -81,19 +84,19 @@ export default function OrderList() {
 
   const orderUpdate = () => {
     setShow(false);
-    if(status === "Pending"){
-        setStatus("Accepted");
-    }else if(status === "Accepted"){
-        setStatus("In Warehouse");
-    }else if(status === "In Warehouse"){
-        setStatus("Shipped");
-    }else if(status === "Shipped"){
-        setStatus("Completed");
-    }else {
-        setStatus("Cancel");
+    if (status === "Pending") {
+      setStatus("Accepted");
+    } else if (status === "Accepted") {
+      setStatus("In Warehouse");
+    } else if (status === "In Warehouse") {
+      setStatus("Shipped");
+    } else if (status === "Shipped") {
+      setStatus("Completed");
+    } else {
+      setStatus("Cancel");
     }
-    updateConfirm("status",status);
-  }
+    updateConfirm("status", status);
+  };
 
   const deleteCancel = () => {
     setShow(false);
@@ -145,10 +148,10 @@ export default function OrderList() {
                 className="userListEdit"
                 style={{ backgroundColor: "#87DD44" }}
                 onClick={() => {
-                    setCartId(params.row._id);
-                    setStatus("In Warehouse");
-                    setShow(true);
-                  }}
+                  setCartId(params.row._id);
+                  setStatus("In Warehouse");
+                  setShow(true);
+                }}
               >
                 {params.row.status}
               </button>
@@ -157,10 +160,10 @@ export default function OrderList() {
                 className="userListEdit"
                 style={{ backgroundColor: "#DD9A44" }}
                 onClick={() => {
-                    setStatus("Shipped");
-                    setCartId(params.row._id);
-                    setShow(true);
-                  }}
+                  setStatus("Shipped");
+                  setCartId(params.row._id);
+                  setShow(true);
+                }}
               >
                 {params.row.status}
               </button>
@@ -169,10 +172,10 @@ export default function OrderList() {
                 className="userListEdit"
                 style={{ backgroundColor: "#44A1DD" }}
                 onClick={() => {
-                    setCartId(params.row._id);
-                    setStatus("Completed");
-                    setShow(true);
-                  }}
+                  setCartId(params.row._id);
+                  setStatus("Completed");
+                  setShow(true);
+                }}
               >
                 {params.row.status}
               </button>
@@ -219,10 +222,10 @@ export default function OrderList() {
                 className="userListEdit"
                 style={{ backgroundColor: "red" }}
                 onClick={() => {
-                    setUpdateShow(true);
-                    setCartId(params.row._id);
-                    setIsCancelStatus(true);
-                  }}
+                  setUpdateShow(true);
+                  setCartId(params.row._id);
+                  setIsCancelStatus(true);
+                }}
               >
                 Request Received
               </button>
@@ -266,12 +269,11 @@ export default function OrderList() {
         confirmBtnBsStyle="danger"
         title="Are you sure?"
         onConfirm={() => {
-            if(isCancelStatus === true){
-                updateConfirm("status","Cancel");
-            }else {
-                updateConfirm("isCancel",true);
-            }
-            
+          if (isCancelStatus === true) {
+            updateConfirm("status", "Cancel");
+          } else {
+            updateConfirm("isCancel", true);
+          }
         }}
         onCancel={deleteCancel}
         focusCancelBtn

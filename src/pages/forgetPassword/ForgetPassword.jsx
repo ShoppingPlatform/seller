@@ -84,18 +84,19 @@ const ForgetPassword = () => {
   const [allErrorShow, setAllErrorShow] = useState(false);
   const dispatch = useDispatch();
   // const navigation = useNavigate();
+  // const token = useSelector((state) => state.user.currentUser.accessToken);
 
   const handleClick = (e) => {
     e.preventDefault();
     const checkEmail = async () => {
       try {
         let response = await fetch(
-          "http://192.168.8.187:5000/api/v1/user/email",
+          "https://apiuserbuyer.herokuapp.com/api/v1/user/email",
           {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              // token: token,
+              "Access-Control-Allow-Origin": "origin-list",
             },
             body: JSON.stringify({
               email: email,
@@ -117,12 +118,12 @@ const ForgetPassword = () => {
   const checkLogin = async (id) => {
     try {
       let response = await fetch(
-        `http://192.168.8.187:5000/api/v1/user/${id}`,
+        `https://apiuserbuyer.herokuapp.com/api/v1/user/${id}`,
         {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
-            // token: token,
+            "Access-Control-Allow-Origin": "origin-list",
           },
           body: JSON.stringify({
             password: password,

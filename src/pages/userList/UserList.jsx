@@ -5,6 +5,7 @@ import { userRows } from "../../dummyData";
 import { Link } from "react-router-dom";
 import SweetAlert from "react-bootstrap-sweetalert";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function UserList() {
   const [data, setData] = useState([]);
@@ -18,18 +19,31 @@ export default function UserList() {
   const [deleteTrigger, setDeleteTrigger] = useState([]);
   const [updateActivate, setUpdateActivate] = useState(false);
   // const [data, setData] = useState(userRows);
-
+  const user = useSelector((state) => state.user.currentUser);
+  const token = useSelector((state) => state.user.currentUser.accessToken);
   // IP address of local machine - 192.168.8.187
+
+  useEffect(() => {
+    if (user === null) {
+      // navigate("/login");
+      window.location.href = "http://localhost:3000/login";
+    }
+  }, []);
+
   useEffect(() => {
     const userData = async () => {
       try {
-        let response = await fetch("http://localhost:5000/api/v1/user", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            // token: token,
-          },
-        });
+        let response = await fetch(
+          "https://apiuserbuyer.herokuapp.com/api/v1/user",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              token: `Bearer ${token}`,
+              "Access-Control-Allow-Origin": "origin-list",
+            },
+          }
+        );
         let json = await response.json();
         setData(json);
         console.log(json);
@@ -41,16 +55,16 @@ export default function UserList() {
     userData();
   }, [deleteTrigger]);
 
-  const URL = `http://localhost:5000/api/v1/user/${userId}`;
+  const URL = `https://apiuserbuyer.herokuapp.com/api/v1/user/${userId}`;
 
-  const URl_Update = `http://localhost:5000/api/v1/user/${userId}`;
+  const URl_Update = `https://apiuserbuyer.herokuapp.com/api/v1/user/${userId}`;
 
-  const updateConfirm = async (key,value) => {
+  const updateConfirm = async (key, value) => {
     let jsonObject;
-    if(key === "isActivated"){
-      jsonObject = {"isActivated":value}
-    }else if(key === "isAdmin"){
-      jsonObject = {"isAdmin":value}
+    if (key === "isActivated") {
+      jsonObject = { isActivated: value };
+    } else if (key === "isAdmin") {
+      jsonObject = { isAdmin: value };
     }
     console.log(jsonObject);
     try {
@@ -58,7 +72,8 @@ export default function UserList() {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          // token: token,
+          token: `Bearer ${token}`,
+          "Access-Control-Allow-Origin": "origin-list",
         },
         body: JSON.stringify(jsonObject),
       });
@@ -79,7 +94,8 @@ export default function UserList() {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-          // token: token,
+          token: `Bearer ${token}`,
+          "Access-Control-Allow-Origin": "origin-list",
         },
       });
       let json = await response.json();
@@ -101,7 +117,7 @@ export default function UserList() {
     setUserId(id);
     // setData(data.filter((item) => item.id !== id));
   };
-  
+
   const columns = [
     { field: "_id", headerName: "ID", width: 220 },
     {
@@ -261,7 +277,9 @@ export default function UserList() {
         confirmBtnText="Yes, Update it!"
         confirmBtnBsStyle="danger"
         title="Are you sure?"
-        onConfirm={()=>{updateConfirm(keyData,valueData)}}
+        onConfirm={() => {
+          updateConfirm(keyData, valueData);
+        }}
         onCancel={deleteCancel}
         focusCancelBtn
       >

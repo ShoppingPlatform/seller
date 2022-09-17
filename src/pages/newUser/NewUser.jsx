@@ -39,7 +39,7 @@ export default function NewUser() {
   //   userData();
   // }, []);
 
-  const URL_create = "http://localhost:5000/api/v1/auth/register";
+  const URL_create = "https://apiuserbuyer.herokuapp.com/api/v1/auth/register";
 
   const createUser = (e) => {
     e.preventDefault();
@@ -73,7 +73,7 @@ export default function NewUser() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          // token: token,
+          "Access-Control-Allow-Origin": "origin-list"
         },
         body: JSON.stringify({
           username: formSaveData.username,

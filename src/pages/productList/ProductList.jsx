@@ -10,6 +10,7 @@ import SweetAlert from "react-bootstrap-sweetalert";
 export default function ProductList() {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.product.products);
+  const token = useSelector((state) => state.user.currentUser.accessToken);
   const [show, setShow] = useState(false);
   const [productId, setProductId] = useState("");
   const [deleteTrigger, setDeleteTrigger] = useState([]);
@@ -17,9 +18,9 @@ export default function ProductList() {
 
   useEffect(() => {
     getProducts(dispatch);
-  }, [dispatch,deleteTrigger]);
+  }, [dispatch, deleteTrigger]);
 
-  const URL = `http://localhost:5000/api/v1/products/${productId}`;
+  const URL = `https://apibuy.herokuapp.com/api/v1/products/${productId}`;
 
   const deleteConfirm = async () => {
     setShow(false);
@@ -28,7 +29,8 @@ export default function ProductList() {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-          // token: token,
+          token: `Bearer ${token}`,
+          "Access-Control-Allow-Origin": "origin-list",
         },
       });
       let json = await response.json();
