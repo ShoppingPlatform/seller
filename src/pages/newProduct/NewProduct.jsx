@@ -24,6 +24,7 @@ export default function NewProduct() {
   const [allShow, setAllShow] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.currentUser);
+  const token = useSelector((state) => state.user.currentUser.accessToken);
   let history = useHistory();
 
   useEffect(()=>{
@@ -92,7 +93,7 @@ export default function NewProduct() {
             color:color,
             size:size
           };
-          addProduct(product, dispatch);
+          addProduct(product, dispatch,token);
           setAllShow(true);
         });
       }
