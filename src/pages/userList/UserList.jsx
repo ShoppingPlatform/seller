@@ -26,7 +26,7 @@ export default function UserList() {
   useEffect(() => {
     if (user === null) {
       // navigate("/login");
-      window.location.href = "http://localhost:3000/login";
+      window.location.href = "https://fluffy-sopapillas-e80ba6.netlify.app/login";
     }
   }, []);
 

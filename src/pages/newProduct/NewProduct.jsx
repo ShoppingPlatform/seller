@@ -8,10 +8,11 @@ import {
 } from "firebase/storage";
 import app from "../../firebase";
 import { addProduct } from "../../redux/apiCalls";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import SweetAlert from "react-bootstrap-sweetalert";
 import { Link, useLocation } from "react-router-dom";
 import "../user/user.css";
+import { useEffect } from "react";
 
 export default function NewProduct() {
   const [inputs, setInputs] = useState({});
@@ -21,6 +22,14 @@ export default function NewProduct() {
   const [size, setSize] = useState([]);
   const [allShow, setAllShow] = useState(false);
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.currentUser);
+
+  useEffect(()=>{
+    if(user === null){
+      // navigate("/login");
+      window.location.href = "https://fluffy-sopapillas-e80ba6.netlify.app/login";
+    }
+  },[]);
 
   const handleChange = (e) => {
     setInputs((prev) => {

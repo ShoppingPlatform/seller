@@ -134,7 +134,7 @@ const ForgetPassword = () => {
       let json = await response.json();
       setData(json);
       setAllShow(true);
-      window.location.href = "http://localhost:3001/login";
+      window.location.href = "https://fluffy-sopapillas-e80ba6.netlify.app/login";
     } catch (error) {
       setAllErrorShow(true);
     }

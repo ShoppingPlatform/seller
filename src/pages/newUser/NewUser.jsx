@@ -2,6 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 import SweetAlert from "react-bootstrap-sweetalert";
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
 import "./newUser.css";
 import "../user/user.css";
 
@@ -12,32 +13,17 @@ export default function NewUser() {
   const [formSaveData, setFormSaveData] = useState([]);
   const [show, setShow] = useState(false);
   const [allShow, setAllShow] = useState(false);
+  const user = useSelector((state) => state.user.currentUser);
 
   const { register, handleSubmit } = useForm();
   const onSubmit = (data) => console.log(data);
 
-  // const URL = `http://localhost:5000/api/v1/user/find/${userId}`;
-
-  // useEffect(() => {
-  //   const userData = async () => {
-  //     try {
-  //       let response = await fetch(URL, {
-  //         method: "GET",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           // token: token,
-  //         },
-  //       });
-  //       let json = await response.json();
-  //       setData(json);
-  //       console.log(json);
-  //       // setLoading(false);
-  //     } catch (error) {
-  //       alert(error);
-  //     }
-  //   };
-  //   userData();
-  // }, []);
+  useEffect(()=>{
+    if(user === null){
+      // navigate("/login");
+      window.location.href = "https://fluffy-sopapillas-e80ba6.netlify.app/login";
+    }
+  },[]);
 
   const URL_create = "https://apiuserbuyer.herokuapp.com/api/v1/auth/register";
 

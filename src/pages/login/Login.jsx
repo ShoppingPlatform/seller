@@ -119,7 +119,7 @@ const Login = () => {
         if (json.isActivated) {
           setAllShow(true);
           dispatch(loginSuccess(json));
-          window.location.href = "http://localhost:3000/";
+          window.location.href = "https://fluffy-sopapillas-e80ba6.netlify.app/";
         } else {
           alert("User is deactivated! Please contact system admin");
         }

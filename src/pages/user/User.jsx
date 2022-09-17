@@ -20,8 +20,16 @@ export default function User() {
   const [formSaveData, setFormSaveData] = useState([]);
   const [show, setShow] = useState(false);
   const token = useSelector((state) => state.user.currentUser.accessToken);
+  const user = useSelector((state) => state.user.currentUser);
 
   const URL = `https://apiuserbuyer.herokuapp.com/api/v1/user/find/${userId}`;
+
+  useEffect(()=>{
+    if(user === null){
+      // navigate("/login");
+      window.location.href = "https://fluffy-sopapillas-e80ba6.netlify.app/login";
+    }
+  },[]);
 
   useEffect(() => {
     const userData = async () => {

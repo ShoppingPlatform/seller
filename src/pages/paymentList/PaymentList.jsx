@@ -17,9 +17,16 @@ export default function PaymentList() {
   const [paymentId, setPaymentId] = useState("");
   const [deleteTrigger, setDeleteTrigger] = useState("");
   const token = useSelector((state) => state.user.currentUser.accessToken);
+  const user = useSelector((state) => state.user.currentUser);
   // const [data, setData] = useState(userRows);
 
   // IP address of local machine - 192.168.8.187
+  useEffect(()=>{
+    if(user === null){
+      // navigate("/login");
+      window.location.href = "https://fluffy-sopapillas-e80ba6.netlify.app/login";
+    }
+  },[]);
   useEffect(() => {
     const userData = async () => {
       try {

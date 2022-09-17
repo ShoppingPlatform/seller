@@ -8,7 +8,7 @@ export default function Topbar() {
   const dispatch = useDispatch();
   const logOutPress = () => {
     dispatch(logout());
-    window.location.href = "http://localhost:3000/login";
+    window.location.href = "https://fluffy-sopapillas-e80ba6.netlify.app/login";
   }
   return (
     <div className="topbar">

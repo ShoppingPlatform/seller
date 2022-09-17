@@ -21,11 +21,19 @@ export default function OrderList() {
   const [deleteTrigger, setDeleteTrigger] = useState([]);
   const [cartId, setCartId] = useState("");
   const token = useSelector((state) => state.user.currentUser.accessToken);
+  const user = useSelector((state) => state.user.currentUser);
 
   //   const user = useSelector((state) => state.user.currentUser._id);
   const URL = `https://apideliverybuyer.herokuapp.com/api/v1/orders/`;
   // const URL = `http://192.168.8.187:5000/api/v1/carts/find/${user}`;
   // const [data, setData] = useState(userRows);
+
+  useEffect(()=>{
+    if(user === null){
+      // navigate("/login");
+      window.location.href = "https://fluffy-sopapillas-e80ba6.netlify.app/login";
+    }
+  },[]);
 
   // IP address of local machine - 192.168.8.187
   useEffect(() => {

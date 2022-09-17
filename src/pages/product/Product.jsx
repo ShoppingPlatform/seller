@@ -16,6 +16,7 @@ export default function Product() {
   const [allShow, setAllShow] = useState(false);
   const [formSaveData, setFormSaveData] = useState([]);
   const token = useSelector((state) => state.user.currentUser.accessToken);
+  const user = useSelector((state) => state.user.currentUser);
 
   const product = useSelector((state) =>
     state.product.products.find((product) => product._id === productId)
@@ -38,6 +39,13 @@ export default function Product() {
     ],
     []
   );
+
+  useEffect(()=>{
+    if(user === null){
+      // navigate("/login");
+      window.location.href = "https://fluffy-sopapillas-e80ba6.netlify.app/login";
+    }
+  },[]);
 
   useEffect(() => {
     const getStats = async () => {
