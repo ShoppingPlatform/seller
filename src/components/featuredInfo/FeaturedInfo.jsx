@@ -15,7 +15,7 @@ export default function FeaturedInfo() {
   useEffect(() => {
     const getIncome = async () => {
       try {
-        const res = await userRequest.get("https://apideliverybuyer.herokuapp.com/orders/income",{
+        const res = await userRequest.get("https://apideliverybuyer.herokuapp.com/api/v1/orders/income",{
           headers: {
             "Content-Type": "application/json",
             token: `Bearer ${token}`,
@@ -32,7 +32,13 @@ export default function FeaturedInfo() {
   useEffect(() => {
     const getCountUsers = async () => {
       try {
-        const res = await userRequest.get("http://localhost:5000/api/v1/user");
+        const res = await userRequest.get("https://apiuserbuyer.herokuapp.com/api/v1/user",{
+          headers: {
+            "Content-Type": "application/json",
+            token: `Bearer ${token}`,
+            "Access-Control-Allow-Origin": "origin-list",
+          },
+        });
         setCountUsers(res.data.length);
         console.log(countUsers);
       } catch {}
