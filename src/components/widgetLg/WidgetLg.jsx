@@ -12,7 +12,7 @@ export default function WidgetLg() {
     const getOrders = async () => {
       try {
         const res = await userRequest.get(
-          "https://apiuserbuyer.herokuapp.com/api/v1/orders",
+          "https://apideliverybuyer.herokuapp.com/api/v1/orders",
           {
             headers: {
               "Content-Type": "application/json",
