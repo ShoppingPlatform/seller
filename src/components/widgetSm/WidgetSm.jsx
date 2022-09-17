@@ -2,15 +2,24 @@ import "./widgetSm.css";
 import { Visibility } from "@material-ui/icons";
 import { useEffect, useState } from "react";
 import { userRequest } from "../../requestMethods";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function WidgetSm() {
   const [users, setUsers] = useState([]);
+  const token = useSelector((state) => state.user.currentUser.accessToken);
 
   useEffect(() => {
     const getUsers = async () => {
       try {
         const res = await userRequest.get(
-          "https://apiuserbuyer.herokuapp.com/api/v1/user/?new=true"
+          "https://apiuserbuyer.herokuapp.com/api/v1/user/?new=true",
+          {
+            headers: {
+              "Content-Type": "application/json",
+              token: `Bearer ${token}`,
+              "Access-Control-Allow-Origin": "origin-list",
+            },
+          }
         );
         setUsers(res.data);
       } catch {}

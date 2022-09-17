@@ -13,6 +13,7 @@ import SweetAlert from "react-bootstrap-sweetalert";
 import { Link, useLocation } from "react-router-dom";
 import "../user/user.css";
 import { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 
 export default function NewProduct() {
   const [inputs, setInputs] = useState({});
@@ -23,11 +24,13 @@ export default function NewProduct() {
   const [allShow, setAllShow] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.currentUser);
+  let history = useHistory();
 
   useEffect(()=>{
     if(user === null){
       // navigate("/login");
-      window.location.href = "https://fluffy-sopapillas-e80ba6.netlify.app/login";
+      // window.location.href = "https://fluffy-sopapillas-e80ba6.netlify.app/login";
+      history.push('/login');
     }
   },[]);
 

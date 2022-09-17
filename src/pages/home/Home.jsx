@@ -13,6 +13,7 @@ export default function Home() {
   const [userStats, setUserStats] = useState([]);
   const user = useSelector((state) => state.user.currentUser);
   // const navigate  = useNavigate();
+  const token = useSelector((state) => state.user.currentUser.accessToken);
   let history = useHistory();
 
   const MONTHS = useMemo(
@@ -36,7 +37,16 @@ export default function Home() {
   useEffect(() => {
     const getStats = async () => {
       try {
-        const res = await userRequest.get("http://localhost:5000/api/v1/user/stats");
+        const res = await userRequest.get(
+          "http://localhost:5000/api/v1/user/stats",
+          {
+            headers: {
+              "Content-Type": "application/json",
+              token: `Bearer ${token}`,
+              "Access-Control-Allow-Origin": "origin-list",
+            },
+          }
+        );
         res.data.map((item) =>
           setUserStats((prev) => [
             ...prev,
@@ -48,13 +58,13 @@ export default function Home() {
     getStats();
   }, [MONTHS]);
 
-  useEffect(()=>{
-    if(user === null){
+  useEffect(() => {
+    if (user === null) {
       // navigate("/login");
-      history.push('/login');
+      history.push("/login");
       // window.location.href = "https://fluffy-sopapillas-e80ba6.netlify.app/login";
     }
-  },[]);
+  }, []);
 
   return (
     <div className="home">

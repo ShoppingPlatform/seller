@@ -11,6 +11,7 @@ import { useEffect, useMemo, useState } from "react";
 import "./user.css";
 import SweetAlert from "react-bootstrap-sweetalert";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 export default function User() {
   const location = useLocation();
@@ -21,13 +22,14 @@ export default function User() {
   const [show, setShow] = useState(false);
   const token = useSelector((state) => state.user.currentUser.accessToken);
   const user = useSelector((state) => state.user.currentUser);
+  let history = useHistory();
 
   const URL = `https://apiuserbuyer.herokuapp.com/api/v1/user/find/${userId}`;
 
   useEffect(()=>{
     if(user === null){
-      // navigate("/login");
-      window.location.href = "https://fluffy-sopapillas-e80ba6.netlify.app/login";
+      history.push('/login');
+      // window.location.href = "https://fluffy-sopapillas-e80ba6.netlify.app/login";
     }
   },[]);
 

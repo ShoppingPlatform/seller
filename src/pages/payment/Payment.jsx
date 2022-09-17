@@ -13,6 +13,7 @@ import SweetAlert from "react-bootstrap-sweetalert";
 import formatDistance from "date-fns/formatDistance";
 import { format } from "timeago.js";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 export default function Payments() {
   const location = useLocation();
@@ -23,13 +24,14 @@ export default function Payments() {
   const [show, setShow] = useState(false);
   const token = useSelector((state) => state.user.currentUser.accessToken);
   const user = useSelector((state) => state.user.currentUser);
+  let history = useHistory();
 
   const URL = `https://apipaymentbuyer.herokuapp.com/api/v1/checkout/find/${paymentId}`;
 
   useEffect(()=>{
     if(user === null){
-      // navigate("/login");
-      window.location.href = "https://fluffy-sopapillas-e80ba6.netlify.app/login";
+      history.push('/login');
+      // window.location.href = "https://fluffy-sopapillas-e80ba6.netlify.app/login";
     }
   },[]);
 

@@ -5,10 +5,7 @@ import SweetAlert from "react-bootstrap-sweetalert";
 // import { useNavigate } from "react-router";
 import styled from "styled-components";
 import { mobile } from "../../responsive";
-// import { async } from "@firebase/util";
-// import {
-//   useNavigate,
-// } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 
 const Container = styled.div`
   width: 100vw;
@@ -83,8 +80,7 @@ const ForgetPassword = () => {
   const [allShow, setAllShow] = useState(false);
   const [allErrorShow, setAllErrorShow] = useState(false);
   const dispatch = useDispatch();
-  // const navigation = useNavigate();
-  // const token = useSelector((state) => state.user.currentUser.accessToken);
+  let history = useHistory();
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -134,7 +130,8 @@ const ForgetPassword = () => {
       let json = await response.json();
       setData(json);
       setAllShow(true);
-      window.location.href = "https://fluffy-sopapillas-e80ba6.netlify.app/login";
+      // window.location.href = "https://fluffy-sopapillas-e80ba6.netlify.app/login";
+      history.push('/login');
     } catch (error) {
       setAllErrorShow(true);
     }

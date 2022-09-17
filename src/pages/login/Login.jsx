@@ -5,6 +5,7 @@ import SweetAlert from "react-bootstrap-sweetalert";
 // import { useNavigate } from "react-router";
 import styled from "styled-components";
 import { mobile } from "../../responsive";
+import { useHistory } from "react-router-dom";
 // import {
 //   useNavigate,
 // } from 'react-router-dom';
@@ -81,21 +82,10 @@ const Login = () => {
   const [allErrorShow, setAllErrorShow] = useState(false);
   const dispatch = useDispatch();
   // const navigation = useNavigate();
+  let history = useHistory();
 
   const handleClick = (e) => {
     e.preventDefault();
-    // login(dispatch, { username, password });
-    // if (isfail) {
-    //   alert("Username password incorrect!");
-    //   setAllErrorShow(true);
-
-    //   // navigate("/login");
-    //   // window.href("http://localhost:3000/");
-    // } else {
-    //   setAllShow(true);
-    //   window.href("http://localhost:3000/");
-    //   // alert("Login Success!");
-    // }
     checkLogin();
   };
 
@@ -119,7 +109,8 @@ const Login = () => {
         if (json.isActivated) {
           setAllShow(true);
           dispatch(loginSuccess(json));
-          window.location.href = "https://fluffy-sopapillas-e80ba6.netlify.app/";
+          history.push('/');
+          // window.location.href = "https://fluffy-sopapillas-e80ba6.netlify.app/";
         } else {
           alert("User is deactivated! Please contact system admin");
         }

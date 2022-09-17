@@ -2,6 +2,7 @@ import "./featuredInfo.css";
 import { ArrowDownward, ArrowUpward } from "@material-ui/icons";
 import { useEffect, useState } from "react";
 import { userRequest } from "../../requestMethods";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function FeaturedInfo() {
   const [income, setIncome] = useState([]);
@@ -9,11 +10,18 @@ export default function FeaturedInfo() {
   const [countCategory, setCountCategory] = useState();
   const [countUsers, setCountUsers] = useState();
   const [countPosts, setCountPosts] = useState();
+  const token = useSelector((state) => state.user.currentUser.accessToken);
 
   useEffect(() => {
     const getIncome = async () => {
       try {
-        const res = await userRequest.get("orders/income");
+        const res = await userRequest.get("https://apideliverybuyer.herokuapp.com/orders/income",{
+          headers: {
+            "Content-Type": "application/json",
+            token: `Bearer ${token}`,
+            "Access-Control-Allow-Origin": "origin-list",
+          },
+        });
         setIncome(res.data);
         setPerc((res.data[1].total * 100) / res.data[0].total - 100);
       } catch {}

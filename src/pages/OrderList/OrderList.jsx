@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import SweetAlert from "react-bootstrap-sweetalert";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 export default function OrderList() {
   const [data, setData] = useState([]);
@@ -22,6 +23,7 @@ export default function OrderList() {
   const [cartId, setCartId] = useState("");
   const token = useSelector((state) => state.user.currentUser.accessToken);
   const user = useSelector((state) => state.user.currentUser);
+  let history = useHistory();
 
   //   const user = useSelector((state) => state.user.currentUser._id);
   const URL = `https://apideliverybuyer.herokuapp.com/api/v1/orders/`;
@@ -30,8 +32,8 @@ export default function OrderList() {
 
   useEffect(()=>{
     if(user === null){
-      // navigate("/login");
-      window.location.href = "https://fluffy-sopapillas-e80ba6.netlify.app/login";
+      history.push('/login');
+      // window.location.href = "https://fluffy-sopapillas-e80ba6.netlify.app/login";
     }
   },[]);
 

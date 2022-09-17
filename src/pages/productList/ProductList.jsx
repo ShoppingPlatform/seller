@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteProduct, getProducts } from "../../redux/apiCalls";
 import SweetAlert from "react-bootstrap-sweetalert";
+import { useHistory } from "react-router-dom";
 
 export default function ProductList() {
   const dispatch = useDispatch();
@@ -16,11 +17,12 @@ export default function ProductList() {
   const [productId, setProductId] = useState("");
   const [deleteTrigger, setDeleteTrigger] = useState([]);
   const [allShow, setAllShow] = useState(false);
+  let history = useHistory();
 
   useEffect(()=>{
     if(user === null){
-      // navigate("/login");
-      window.location.href = "https://fluffy-sopapillas-e80ba6.netlify.app/login";
+      history.push('/login');
+      // window.location.href = "https://fluffy-sopapillas-e80ba6.netlify.app/login";
     }
   },[]);
 

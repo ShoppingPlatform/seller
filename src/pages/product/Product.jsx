@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { useEffect, useMemo, useState } from "react";
 import { userRequest } from "../../requestMethods";
 import SweetAlert from "react-bootstrap-sweetalert";
+import { useHistory } from "react-router-dom";
 
 export default function Product() {
   const location = useLocation();
@@ -17,6 +18,7 @@ export default function Product() {
   const [formSaveData, setFormSaveData] = useState([]);
   const token = useSelector((state) => state.user.currentUser.accessToken);
   const user = useSelector((state) => state.user.currentUser);
+  let history = useHistory();
 
   const product = useSelector((state) =>
     state.product.products.find((product) => product._id === productId)
@@ -42,8 +44,8 @@ export default function Product() {
 
   useEffect(()=>{
     if(user === null){
-      // navigate("/login");
-      window.location.href = "https://fluffy-sopapillas-e80ba6.netlify.app/login";
+      history.push('/login');
+      // window.location.href = "https://fluffy-sopapillas-e80ba6.netlify.app/login";
     }
   },[]);
 

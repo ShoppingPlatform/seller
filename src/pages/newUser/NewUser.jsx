@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import SweetAlert from "react-bootstrap-sweetalert";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import "./newUser.css";
 import "../user/user.css";
 
@@ -17,11 +18,13 @@ export default function NewUser() {
 
   const { register, handleSubmit } = useForm();
   const onSubmit = (data) => console.log(data);
+  let history = useHistory();
 
   useEffect(()=>{
     if(user === null){
       // navigate("/login");
-      window.location.href = "https://fluffy-sopapillas-e80ba6.netlify.app/login";
+      // window.location.href = "https://fluffy-sopapillas-e80ba6.netlify.app/login";
+      history.push('/login');
     }
   },[]);
 

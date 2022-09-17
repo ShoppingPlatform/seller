@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import SweetAlert from "react-bootstrap-sweetalert";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 export default function UserList() {
   const [data, setData] = useState([]);
@@ -21,12 +22,12 @@ export default function UserList() {
   // const [data, setData] = useState(userRows);
   const user = useSelector((state) => state.user.currentUser);
   const token = useSelector((state) => state.user.currentUser.accessToken);
-  // IP address of local machine - 192.168.8.187
+  let history = useHistory();
 
   useEffect(() => {
     if (user === null) {
-      // navigate("/login");
-      window.location.href = "https://fluffy-sopapillas-e80ba6.netlify.app/login";
+      history.push('/login');
+      // window.location.href = "https://fluffy-sopapillas-e80ba6.netlify.app/login";
     }
   }, []);
 
