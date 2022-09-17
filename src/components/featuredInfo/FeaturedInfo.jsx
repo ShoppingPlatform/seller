@@ -10,7 +10,7 @@ export default function FeaturedInfo() {
   const [countCategory, setCountCategory] = useState();
   const [countUsers, setCountUsers] = useState();
   const [countPosts, setCountPosts] = useState();
-  const token = useSelector((state) => state.user.currentUser.accessToken);
+  const token = useSelector((state) => state.user.token);
 
   useEffect(() => {
     const getIncome = async () => {
