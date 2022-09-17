@@ -32,11 +32,6 @@ function App() {
   return (
     <Router>
       <Switch>
-        {!user && (
-          <Route exact path="/login">
-            <Login />
-          </Route>
-        )}
         <Route exact path="/login">
           <Login />
         </Route>
