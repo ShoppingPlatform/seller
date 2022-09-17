@@ -17,7 +17,7 @@ export default function PaymentList() {
   const [updateAllShow, setUpdateAllShow] = useState(false);
   const [paymentId, setPaymentId] = useState("");
   const [deleteTrigger, setDeleteTrigger] = useState("");
-  const token = useSelector((state) => state.user.currentUser.accessToken);
+  const token = useSelector((state) => state.user.token);
   const user = useSelector((state) => state.user.currentUser);
   let history = useHistory();
   // const [data, setData] = useState(userRows);

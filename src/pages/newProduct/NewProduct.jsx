@@ -24,7 +24,7 @@ export default function NewProduct() {
   const [allShow, setAllShow] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.currentUser);
-  const token = useSelector((state) => state.user.currentUser.accessToken);
+  const token = useSelector((state) => state.user.token);
   let history = useHistory();
 
   useEffect(()=>{

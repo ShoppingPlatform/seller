@@ -21,7 +21,7 @@ export default function OrderList() {
   const [userId, setUserId] = useState("");
   const [deleteTrigger, setDeleteTrigger] = useState([]);
   const [cartId, setCartId] = useState("");
-  const token = useSelector((state) => state.user.currentUser.accessToken);
+  const token = useSelector((state) => state.user.token);
   const user = useSelector((state) => state.user.currentUser);
   let history = useHistory();
 

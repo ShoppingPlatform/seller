@@ -20,7 +20,7 @@ export default function User() {
   const [data, setData] = useState([]);
   const [formSaveData, setFormSaveData] = useState([]);
   const [show, setShow] = useState(false);
-  const token = useSelector((state) => state.user.currentUser.accessToken);
+  const token = useSelector((state) => state.user.token);
   const user = useSelector((state) => state.user.currentUser);
   let history = useHistory();
 

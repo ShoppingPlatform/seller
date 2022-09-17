@@ -16,7 +16,7 @@ export default function Product() {
   const [show, setShow] = useState(false);
   const [allShow, setAllShow] = useState(false);
   const [formSaveData, setFormSaveData] = useState([]);
-  const token = useSelector((state) => state.user.currentUser.accessToken);
+  const token = useSelector((state) => state.user.token);
   const user = useSelector((state) => state.user.currentUser);
   let history = useHistory();
 

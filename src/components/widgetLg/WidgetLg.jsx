@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 export default function WidgetLg() {
   const [orders, setOrders] = useState([]);
-  const token = useSelector((state) => state.user.currentUser.accessToken);
+  const token = useSelector((state) => state.user.token);
 
   useEffect(() => {
     const getOrders = async () => {

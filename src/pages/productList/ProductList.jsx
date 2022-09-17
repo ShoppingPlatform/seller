@@ -11,7 +11,7 @@ import { useHistory } from "react-router-dom";
 export default function ProductList() {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.product.products);
-  const token = useSelector((state) => state.user.currentUser.accessToken);
+  const token = useSelector((state) => state.user.token);
   const user = useSelector((state) => state.user.currentUser);
   const [show, setShow] = useState(false);
   const [productId, setProductId] = useState("");

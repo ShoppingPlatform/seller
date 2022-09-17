@@ -12,7 +12,7 @@ const BulkEmail = () => {
   const form = useRef();
   const [show, setShow] = useState(false);
   const [data, setData] = useState([]);
-  const token = useSelector((state) => state.user.currentUser.accessToken);
+  const token = useSelector((state) => state.user.token);
 
   useEffect(() => {
     const getUsers = async () => {

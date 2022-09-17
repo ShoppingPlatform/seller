@@ -21,7 +21,7 @@ export default function UserList() {
   const [updateActivate, setUpdateActivate] = useState(false);
   // const [data, setData] = useState(userRows);
   const user = useSelector((state) => state.user.currentUser);
-  const token = useSelector((state) => state.user.currentUser.accessToken);
+  const token = useSelector((state) => state.user.token);
   let history = useHistory();
 
   useEffect(() => {
