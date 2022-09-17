@@ -32,6 +32,7 @@ function App() {
   return (
     <Router>
       <Switch>
+        {/* <Route to="*" component={NotFound}></Route> */}
         <Route exact path="/login">
           <Login />
         </Route>
@@ -39,53 +40,52 @@ function App() {
           <ForgetPassword />
         </Route>
         {/* {user.isAdmin && ( */}
-          <>
-            <Topbar />
-            <div className="container">
-              <Sidebar />
-              <Route exact path="/">
-                <Home />
-              </Route>
-              <Route path="/users">
-                <UserList />
-              </Route>
-              <Route path="/user/:userId">
-                <User />
-              </Route>
-              <Route path="/newUser">
-                <NewUser />
-              </Route>
-              <Route path="/products">
-                <ProductList />
-              </Route>
-              <Route path="/product/:productId">
-                <Product />
-              </Route>
-              <Route path="/newproduct">
-                <NewProduct />
-              </Route>
-              <Route path="/orders">
-                <OrderList />
-              </Route>
-              <Route path="/reports">
-                <ReportList />
-              </Route>
+        <>
+          <Topbar />
+          <div className="container">
+            <Sidebar />
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route path="/users">
+              <UserList />
+            </Route>
+            <Route path="/user/:userId">
+              <User />
+            </Route>
+            <Route path="/newUser">
+              <NewUser />
+            </Route>
+            <Route path="/products">
+              <ProductList />
+            </Route>
+            <Route path="/product/:productId">
+              <Product />
+            </Route>
+            <Route path="/newproduct">
+              <NewProduct />
+            </Route>
+            <Route path="/orders">
+              <OrderList />
+            </Route>
+            <Route path="/reports">
+              <ReportList />
+            </Route>
 
-              <Route path="/email">
-                <SendEmail />
-              </Route>
-              <Route path="/bulkEmail">
-                <BulkEmail />
-              </Route>
-              <Route path="/payments">
-                <PaymentList />
-              </Route>
-              <Route path="/payment/:paymentId">
-                <Payments />
-              </Route>
-
-            </div>
-          </>
+            <Route path="/email">
+              <SendEmail />
+            </Route>
+            <Route path="/bulkEmail">
+              <BulkEmail />
+            </Route>
+            <Route path="/payments">
+              <PaymentList />
+            </Route>
+            <Route path="/payment/:paymentId">
+              <Payments />
+            </Route>
+          </div>
+        </>
         {/* )} */}
       </Switch>
     </Router>

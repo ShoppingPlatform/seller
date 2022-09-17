@@ -7,11 +7,13 @@ import { useEffect, useMemo, useState } from "react";
 import { userRequest } from "../../requestMethods";
 import { useDispatch, useSelector } from "react-redux";
 // import { useNavigate } from "react-router";
+import { useHistory } from "react-router-dom";
 
 export default function Home() {
   const [userStats, setUserStats] = useState([]);
   const user = useSelector((state) => state.user.currentUser);
   // const navigate  = useNavigate();
+  let history = useHistory();
 
   const MONTHS = useMemo(
     () => [
@@ -49,7 +51,8 @@ export default function Home() {
   useEffect(()=>{
     if(user === null){
       // navigate("/login");
-      window.location.href = "https://fluffy-sopapillas-e80ba6.netlify.app/login";
+      history.push('/login');
+      // window.location.href = "https://fluffy-sopapillas-e80ba6.netlify.app/login";
     }
   },[]);
 
